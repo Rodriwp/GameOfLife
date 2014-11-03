@@ -9,6 +9,8 @@ import java.io.IOException;
  * 
  * @see http://en.wikipedia.org/wiki/Conway's_Game_of_Life
  * @author chema
+ * @author Rodrigo Mompo Redoli 
+ * @author Jorge Ramirez Cobo 
  *
  */
 public class SimpleGameOfLifeToComplete {
