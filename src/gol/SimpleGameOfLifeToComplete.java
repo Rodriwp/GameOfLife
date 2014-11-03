@@ -8,7 +8,9 @@ import java.io.IOException;
  * See FIXME comments to implement the missing functionality.
  * 
  * @see http://en.wikipedia.org/wiki/Conway's_Game_of_Life
+ * Teacher:
  * @author chema
+ * Students:
  * @author Rodrigo Mompo Redoli 
  * @author Jorge Ramirez Cobo 
  *
