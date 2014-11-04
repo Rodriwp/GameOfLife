@@ -46,7 +46,7 @@ public class SimpleGameOfLifeToComplete {
 					//FIXME: Implement this function.
 
 					countLiveNeighbours=countLiveNeighbours(board,i,j);
-
+                    //System.out.println("The cell have this value: "+i+","+j+": "+countLiveNeighbours);//For debugging only 
 					
 					//FIXME: Check these conditions and assign new values.
 					//Any live cell with fewer than two live neighbours dies, as if caused by under-population.
@@ -71,7 +71,28 @@ public class SimpleGameOfLifeToComplete {
 		}
 
 	}
-
+	/*
+	 * This function checks a matrix of dimension 3x3 center in the point given.
+	 * It will go trough all the cells and count the numbers of cells alive.
+	 * 
+	 * In case you are in the border you can subtract rows and cols of this matrix
+	 * by changin minrow, mincol,maxrow,maxcol by 0.
+	 * By default you have to use 1 
+	 */
+    public static short checkingLoop(boolean [][] board,int row,int col,int minrow, int mincol,int maxrow, int maxcol){
+    	short alive = 0;
+		for(int i = row-minrow; i<= row+maxrow;i++){
+			for(int j = col-mincol; j<= col+maxcol;j++){
+				if(i== row && j==col){//Check if is the cell that we are evaluating
+					continue;
+				}
+			    if(board[i][j] == true)	{//Check if the cell is alive 
+				     alive++;//Sum an alive cell to the counter 
+			    }
+			}
+		}
+		return alive;
+    }//End of chekingLoop() function 
 	/**
 	 * Given a board of boolean values where 1 is an alive cell and 0 a died one. The function must return 
 	 * the number of alive cells around a cell(row, col).
@@ -86,72 +107,29 @@ public class SimpleGameOfLifeToComplete {
 		int nrows = board.length;
 		int ncols = board[0].length;
 		//FIXME: Check if the neighbours are alive or not.
-		if(row != 0 && row != (nrows-1) && col!= 0 && col != (ncols-1) ){ //Check if the cell to evaluate is in the border
-				//Loop for cells that are not in the border
-				for(int i = row-1; i<= row+1;i++){
-					for(int j = col-1; j<= col+1;j++){
-						if(i== row && j==col){//Check if is the cell that we are evaluating
-							continue;
-						}
-					    if(board[i][j] == true)	{//Check if the cell is alive 
-						     alive++;//Sum an alive cell to the counter 
-					    }
-					}
-				}
+		
+		if(row != 0 && row != (nrows-1) && col!= 0 && col != (ncols-1) ){ //Check if the cell to evaluate is not in the border
+			
+				alive = checkingLoop(board,row,col,1,1,1,1);//Loop for cells that are not in the border
 				
 		}else if(!(row == 0 && col== 0) && !(row == (nrows-1) && col== 0)&&
-				!(row == 0 && col== (ncols-1)) &&!(row == (nrows-1) &&col== (ncols-1)) ){//check that the cell is not the corner 
+				!(row == 0 && col== (ncols-1)) &&!(row == (nrows-1) &&col== (ncols-1)) ){//check that the cell is not in the corner 
+			
 				/*Code for the cells that are in the boarder but not in the corner 
 				 * 
 				 * We just avoid evaluating the row or col that is out of the board in each case 
-				 * by changing the matrix 3x3 that we evaluate in each cell for a matrix 2x3
+				 * by changing the matrix 3x3 and extracting some row or col 
 				 * */
                  
 				if(row == 0){
-					for(int i = row; i<= row+1;i++){
-						for(int j = col-1; j<= col+1;j++){
-							if(i== row && j==col){//Check if is the cell that we are evaluating
-								continue;
-							}
-						    if(board[i][j] == true)	{//Check if the cell is alive 
-							     alive++;//Sum an alive cell to the counter 
-						    }
-						}
-					}
+					alive = checkingLoop(board,row,col,0,1,1,1);
 
 				}else if(row == nrows-1){
-					for(int i = row-1; i<= row;i++){
-						for(int j = col-1; j<= col+1;j++){
-							if(i== row && j==col){//Check if is the cell that we are evaluating
-								continue;
-							}
-						    if(board[i][j] == true)	{//Check if the cell is alive 
-							     alive++;//Sum an alive cell to the counter 
-						    }
-						}
-					}
+					alive = checkingLoop(board,row,col,1,1,0,1);
 				}else if(col == 0){
-					for(int i = row-1; i<= row+1;i++){
-						for(int j = col; j<= col+1;j++){
-							if(i== row && j==col){//Check if is the cell that we are evaluating
-								continue;
-							}
-						    if(board[i][j] == true)	{//Check if the cell is alive 
-							     alive++;//Sum an alive cell to the counter 
-						    }
-						}
-					}
+					alive = checkingLoop(board,row,col,1,0,1,1);
 				}else {
-					for(int i = row-1; i<= row+1;i++){
-						for(int j = col-1; j<= col;j++){
-							if(i== row && j==col){//Check if is the cell that we are evaluating
-								continue;
-							}
-						    if(board[i][j] == true)	{//Check if the cell is alive 
-							     alive++;//Sum an alive cell to the counter 
-						    }
-						}
-					}
+					alive = checkingLoop(board,row,col,1,1,1,0);
 				}
 				
 		}else{
@@ -159,59 +137,24 @@ public class SimpleGameOfLifeToComplete {
 				 * 
 				 * We just avoid evaluating the row or col that is out of the board in each case 
 				 * by changing the matrix 3x3 we evaluate just the L
-				 * One loop for each corner 
+				 * using the function checkingLoop
+				 * 
 				 * */
                  
 				if(row == 0 && col == 0){
-					for(int i = row; i<= row+1;i++){
-						for(int j = col; j<= col+1;j++){
-							if(i== row && j==col){//Check if is the cell that we are evaluating
-								continue;
-							}
-						    if(board[i][j] == true)	{//Check if the cell is alive 
-							     alive++;//Sum an alive cell to the counter 
-						    }
-						}
-					}
+					alive = checkingLoop(board,row,col,0,0,1,1);
 
 				}else if(row == nrows-1 && col == 0){
-					for(int i = row-1; i<= row;i++){
-						for(int j = col; j<= col+1;j++){
-							if(i== row && j==col){//Check if is the cell that we are evaluating
-								continue;
-							}
-						    if(board[i][j] == true)	{//Check if the cell is alive 
-							     alive++;//Sum an alive cell to the counter 
-						    }
-						}
-					}
+					alive = checkingLoop(board,row,col,1,0,0,1);
 				}else if(row  == 0 && col == ncols-1){
-					for(int i = row; i<= row+1;i++){
-						for(int j = col; j<= col;j++){
-							if(i== row && j==col){//Check if is the cell that we are evaluating
-								continue;
-							}
-						    if(board[i][j] == true)	{//Check if the cell is alive 
-							     alive++;//Sum an alive cell to the counter 
-						    }
-						}
-					}
+					alive = checkingLoop(board,row,col,0,1,1,0);
 				}else {
-					for(int i = row-1; i<= row;i++){
-						for(int j = col-1; j<= col;j++){
-							if(i== row && j==col){//Check if is the cell that we are evaluating
-								continue;
-							}
-						    if(board[i][j] == true)	{//Check if the cell is alive 
-							     alive++;//Sum an alive cell to the counter 
-						    }
-						}
-					}
+					alive = checkingLoop(board,row,col,1,1,0,0);
 				}
 			}
 			 
 		return alive;
-	}
+	}//End of countLiveNeighbours()
 
 
 	public static void show(boolean [][]board){
