@@ -50,6 +50,7 @@ public class SimpleGameOfLifeToComplete {
 					}catch(java.lang.ArrayIndexOutOfBoundsException e){
 						System.out.println("This cell fails: "+i +" , "+j);
 					}
+					System.out.println("This cell have a value: "+i +" , "+j+": "+ countLiveNeighbours);
 					//End of debugging
 					
 					
@@ -91,7 +92,7 @@ public class SimpleGameOfLifeToComplete {
 		int nrows = board.length;
 		int ncols = board[0].length;
 		//FIXME: Check if the neighbours are alive or not.
-			if(row != 0 ||row != nrows ||col!= 0 ||col!= ncols ){ //Check if the cell to evaluate is in the border
+			if(row != 0 && row != (nrows-1) && col!= 0 && col != (ncols-1) ){ //Check if the cell to evaluate is in the border
 				//Loop for cells that are not in the border
 				for(int i = row-1; i<= row+1;i++){
 					for(int j = col-1; j<= col+1;j++){
@@ -103,14 +104,15 @@ public class SimpleGameOfLifeToComplete {
 					    }
 					}
 				}
-			}else if(row != 0 && col!= 0 ||row != nrows && col!= 0||
-					 row != 0 && col!= ncols ||row != nrows &&col!= ncols ){//check that the cell is not the corner 
+				
+			}else if(!(row == 0 && col== 0) && !(row == (nrows-1) && col== 0)&&
+					 !(row == 0 && col== (ncols-1)) &&!(row == (nrows-1) &&col== (ncols-1)) ){//check that the cell is not the corner 
 				/*Code for the cells that are in the boarder but not in the corner 
 				 * 
 				 * We just avoid evaluating the row or col that is out of the board in each case 
 				 * by changing the matrix 3x3 that we evaluate in each cell for a matrix 2x3
 				 * */
-
+                 
 				if(row == 0){
 					for(int i = row; i<= row+1;i++){
 						for(int j = col-1; j<= col+1;j++){
@@ -123,7 +125,7 @@ public class SimpleGameOfLifeToComplete {
 						}
 					}
 
-				}else if(row == nrows){
+				}else if(row == nrows-1){
 					for(int i = row-1; i<= row;i++){
 						for(int j = col-1; j<= col+1;j++){
 							if(i== row && j==col){//Check if is the cell that we are evaluating
@@ -159,7 +161,7 @@ public class SimpleGameOfLifeToComplete {
 				}
 				
 			}else{
-				alive = 3;
+				alive = 10;
 			}
 			 
 		return alive;
