@@ -65,7 +65,11 @@ public class SimpleGameOfLifeToComplete {
    					
                 	   
                    }else{
-                	 //Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction.   
+                	 if(countLiveNeighbours == 3){//Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction.
+                		 newBoard[i][j] = true;
+                	 }else{
+                		 newBoard[i][j] = false; 
+                	 }
                    }
 			
 					
