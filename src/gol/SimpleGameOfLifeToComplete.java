@@ -13,7 +13,9 @@ import java.io.IOException;
  * Students:
  * @author Rodrigo Mompo Redoli 
  * @author Jorge Ramirez Cobo 
- *
+ * 
+ *The code is published in a public repository. 
+ *https://github.com/Rodriwp/GameOfLife
  */
 public class SimpleGameOfLifeToComplete {
 
@@ -49,11 +51,15 @@ public class SimpleGameOfLifeToComplete {
                     //System.out.println("The cell have this value: "+i+","+j+": "+countLiveNeighbours);//For debugging only 
 					
 					//FIXME: Check these conditions and assign new values.
-					//Any live cell with fewer than two live neighbours dies, as if caused by under-population.
-					//Any live cell with two or three live neighbours lives on to the next generation.
-					//Any live cell with more than three live neighbours dies, as if by overcrowding.
-					//Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction.
-
+					
+					
+                   if(board[i][j]){
+                	//Any live cell with fewer than two live neighbours dies, as if caused by under-population.
+   					//Any live cell with two or three live neighbours lives on to the next generation.
+   					//Any live cell with more than three live neighbours dies, as if by overcrowding. 
+                   }else{
+                	 //Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction.   
+                   }
 			
 					
 					totalAlive+=(newBoard[i][j]?1:0);
