@@ -34,7 +34,7 @@ public class SimpleGameOfLifeToComplete {
 				totalAlive+=(board[i][j]?1:0);
 			}
 		}
-		//board = demoPattern();
+		board = demoPattern();
 
 		for(int generation=0;generation<NGENERATIONS;generation++){
 			//Evolution
@@ -177,9 +177,11 @@ public class SimpleGameOfLifeToComplete {
 		for(int i = 0;i<board.length;i++){
 			for (int j= 0; j<board[0].length;j++){
 				if(board[i][j]){
-					System.out.print("\t \u2665");
+				System.out.print("\t\u2665");
+					
 				}else{
-					System.out.print("\t \u271D");
+					System.out.print("\t\u2661");
+					
 				}
 			}
 			System.out.println();
