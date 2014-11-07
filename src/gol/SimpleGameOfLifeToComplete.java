@@ -55,8 +55,15 @@ public class SimpleGameOfLifeToComplete {
 					
                    if(board[i][j]){
                 	//Any live cell with fewer than two live neighbours dies, as if caused by under-population.
-   					//Any live cell with two or three live neighbours lives on to the next generation.
-   					//Any live cell with more than three live neighbours dies, as if by overcrowding. 
+                	//Any live cell with more than three live neighbours dies, as if by overcrowding.
+                	   if (countLiveNeighbours<2||countLiveNeighbours>3){
+                		   newBoard[i][j]= false;
+                	//Any live cell with two or three live neighbours lives on to the next generation.
+                	   }else{
+                		   newBoard[i][j]= true;
+                	   }
+   					
+                	   
                    }else{
                 	 //Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction.   
                    }
